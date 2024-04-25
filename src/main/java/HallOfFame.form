@@ -20,7 +20,7 @@
           <font name="Agave Nerd Font Mono" size="36"/>
           <horizontalAlignment value="0"/>
           <horizontalTextPosition value="0"/>
-          <text value="Hall of fame 🏆🏆"/>
+          <text value="Hall of fame 🏆"/>
         </properties>
       </component>
       <component id="17a61" class="javax.swing.JList" binding="fameWall">

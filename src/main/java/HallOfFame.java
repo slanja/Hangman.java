@@ -5,17 +5,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.text.CollationElementIterator;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class HallOfFame extends JFrame {
     private JPanel frame;
     private JList fameWall;
 
-    DefaultListModel model = new DefaultListModel();
+    DefaultListModel listModel = new DefaultListModel();
     // file with saved hall of fame data
     Path path = Paths.get("src/main/fame.txt");
 
@@ -53,7 +49,7 @@ public class HallOfFame extends JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
 
-        fameWall.setModel(model);
+        fameWall.setModel(listModel);
     }
 
     public void LoadTable() throws IOException {
@@ -61,9 +57,7 @@ public class HallOfFame extends JFrame {
 
         // adding all lines from saved file
         for (int i = 0; i < lines.size(); i++) {
-            model.add(i, lines.get(i));
+            listModel.add(i, lines.get(i));
         }
-
-        Arrays.sort(new DefaultListModel[]{model});
     }
 }

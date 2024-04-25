@@ -34,7 +34,7 @@ public class Hangman extends JFrame {
     int mistakes = 0;
 
     Random rand = new Random();
-    DefaultListModel model;
+    DefaultListModel listModel;
 
     public Hangman() throws IOException {
         initComponents();
@@ -48,6 +48,9 @@ public class Hangman extends JFrame {
                 if (inputField.getText().equals(word)) {
                     FillWholeWord();
                     Won();
+                } else if (inputField.getText().length() > 2) {
+                    inputField.setText("");
+                    UpdateMistakes();
                 }
 
                 else {
@@ -66,7 +69,7 @@ public class Hangman extends JFrame {
                             contained = true;
 
                             // replacing underscores that contains guessed letter
-                            model.setElementAt(guessedLetter, i);
+                            listModel.setElementAt(guessedLetter, i);
                         }
                     }
 
@@ -80,7 +83,7 @@ public class Hangman extends JFrame {
 
                     if (mistakes == 10) Lost();
 
-                    if (!model.contains("_")) Won();
+                    if (!listModel.contains("_")) Won();
                 }
             }
 
@@ -107,7 +110,7 @@ public class Hangman extends JFrame {
 
             private void FillWholeWord() {
                 for (int x = 0; x < word.length(); x++) {
-                    model.setElementAt(word.charAt(x), x);
+                    listModel.setElementAt(word.charAt(x), x);
                 }
             }
 
@@ -154,12 +157,12 @@ public class Hangman extends JFrame {
         List<String> lines = Files.readAllLines(path);
         word = lines.get(rand.nextInt(lines.size()));
 
-        model = new DefaultListModel();
-        list.setModel(model);
+        listModel = new DefaultListModel();
+        list.setModel(listModel);
 
         // setting the number of underscores to number of letters in word
         for (int i = 0; i < word.length(); i++) {
-            model.addElement("_");
+            listModel.addElement("_");
         }
     }
 }

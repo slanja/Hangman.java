@@ -10,3 +10,6 @@ golang
 php
 ruby
 scratch
+basic
+micropython
+scala

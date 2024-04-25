@@ -156,7 +156,7 @@ public class Hangman extends JFrame {
 
     private void UpdateMistakes() {
         mistakes++;
-        mistakesDone.setText(String.valueOf(mistakes));
+        mistakesDone.setText(String.valueOf(mistakes) + " mistakes");
     }
 
     private void FillWholeWord() {

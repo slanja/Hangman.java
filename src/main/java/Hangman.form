@@ -71,7 +71,7 @@
         </constraints>
         <properties>
           <font name="Agave Nerd Font" size="26"/>
-          <text value="0"/>
+          <text value="0 mistakes"/>
         </properties>
       </component>
     </children>

@@ -5,11 +5,11 @@
 
 
 <p id="description">After successful guess you can type your name into the hall of fame.</p>
-<img src="screenshots/screenshot_0.png">
+<img src="screenshots/screenshot_1.png">
 
 
 <p id="description">After you type your nickname and click ok, your name will be automatically saved, and you will be able to see your best result at any time.</p>
-<img src="screenshots/screenshot_0.png">
+<img src="screenshots/screenshot_2.png">
 
 
 

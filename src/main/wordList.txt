@@ -1,9 +1,9 @@
 java
 python
-C#
-C++
+c#
+c++
 brainfuck
-C
+c
 javascript
 rust
 golang

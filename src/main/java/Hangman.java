@@ -22,7 +22,7 @@ public class Hangman extends JFrame {
     private JButton guessButton;
     private JButton resetButton;
 
-    private JList list;
+    private JList<String> list;
 
     // word that player has to guess
     String word;
@@ -34,7 +34,7 @@ public class Hangman extends JFrame {
     int mistakes = 0;
 
     Random rand = new Random();
-    DefaultListModel listModel;
+    DefaultListModel<String> listModel;
 
     public Hangman() throws IOException {
         initComponents();
@@ -45,7 +45,7 @@ public class Hangman extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
 
-                if (inputField.getText().equals(word)) {
+                if (inputField.getText().toLowerCase().equals(word)) {
                     FillWholeWord();
                     Won();
                 } else if (inputField.getText().length() > 2) {
@@ -55,7 +55,7 @@ public class Hangman extends JFrame {
 
                 else {
                     try {
-                        guessedLetter = inputField.getText().charAt(0);
+                        guessedLetter = inputField.getText().toLowerCase().charAt(0);
                     } catch (StringIndexOutOfBoundsException e) {
                         UpdateMistakes();
                         if (mistakes == 10) Lost();
@@ -69,7 +69,7 @@ public class Hangman extends JFrame {
                             contained = true;
 
                             // replacing underscores that contains guessed letter
-                            listModel.setElementAt(guessedLetter, i);
+                            listModel.setElementAt(String.valueOf(guessedLetter), i);
                         }
                     }
 
@@ -86,34 +86,6 @@ public class Hangman extends JFrame {
                     if (!listModel.contains("_")) Won();
                 }
             }
-
-            private void Won() {
-                inputField.setText("You won!");
-                inputField.setEnabled(false);
-                guessButton.setEnabled(false);
-
-                // asking for nickname
-                String name = JOptionPane.showInputDialog("Set your nickname:");
-                new HallOfFame(mistakes, name);
-            }
-
-            private void Lost() {
-                inputField.setText("You lost!");
-                inputField.setEnabled(false);
-                guessButton.setEnabled(false);
-            }
-
-            private void UpdateMistakes() {
-                mistakes++;
-                mistakesDone.setText(String.valueOf(mistakes));
-            }
-
-            private void FillWholeWord() {
-                for (int x = 0; x < word.length(); x++) {
-                    listModel.setElementAt(word.charAt(x), x);
-                }
-            }
-
         });
 
         resetButton.addActionListener(new ActionListener() {
@@ -157,12 +129,39 @@ public class Hangman extends JFrame {
         List<String> lines = Files.readAllLines(path);
         word = lines.get(rand.nextInt(lines.size()));
 
-        listModel = new DefaultListModel();
+        listModel = new DefaultListModel<>();
         list.setModel(listModel);
 
         // setting the number of underscores to number of letters in word
         for (int i = 0; i < word.length(); i++) {
             listModel.addElement("_");
+        }
+    }
+
+    private void Won() {
+        inputField.setText("You won!");
+        inputField.setEnabled(false);
+        guessButton.setEnabled(false);
+
+        // asking for nickname
+        String name = JOptionPane.showInputDialog("Set your nickname:");
+        new HallOfFame(mistakes, name);
+    }
+
+    private void Lost() {
+        inputField.setText("You lost!");
+        inputField.setEnabled(false);
+        guessButton.setEnabled(false);
+    }
+
+    private void UpdateMistakes() {
+        mistakes++;
+        mistakesDone.setText(String.valueOf(mistakes));
+    }
+
+    private void FillWholeWord() {
+        for (int x = 0; x < word.length(); x++) {
+            listModel.setElementAt(String.valueOf(word.charAt(x)), x);
         }
     }
 }

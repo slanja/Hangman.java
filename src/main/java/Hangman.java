@@ -39,26 +39,26 @@ public class Hangman extends JFrame {
     public Hangman() throws IOException {
         initComponents();
 
-        RandomWord();
+        randomWord();
 
         guessButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
 
                 if (inputField.getText().toLowerCase().equals(word)) {
-                    FillWholeWord();
-                    Won();
+                    fillWholeWord();
+                    won();
                 } else if (inputField.getText().length() > 2) {
                     inputField.setText("");
-                    UpdateMistakes();
+                    updateMistakes();
                 }
 
                 else {
                     try {
                         guessedLetter = inputField.getText().toLowerCase().charAt(0);
                     } catch (StringIndexOutOfBoundsException e) {
-                        UpdateMistakes();
-                        if (mistakes == 10) Lost();
+                        updateMistakes();
+                        if (mistakes == 10) lost();
                         throw new RuntimeException(e);
                     }
 
@@ -75,15 +75,15 @@ public class Hangman extends JFrame {
 
                     // increasing indicator of mistakes
                     if (!contained) {
-                        UpdateMistakes();
+                        updateMistakes();
                     }
 
                     // clearing input field for more user-friendly feel
                     inputField.setText("");
 
-                    if (mistakes == 10) Lost();
+                    if (mistakes == 10) lost();
 
-                    if (!listModel.contains("_")) Won();
+                    if (!listModel.contains("_")) won();
                 }
             }
         });
@@ -98,7 +98,7 @@ public class Hangman extends JFrame {
                     mistakes = 0;
 
                     // generating new word
-                    RandomWord();
+                    randomWord();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -123,7 +123,7 @@ public class Hangman extends JFrame {
     }
 
     // generates a random word
-    public void RandomWord() throws IOException {
+    public void randomWord() throws IOException {
         // loading word list
         Path path = Paths.get("src/main/wordList.txt");
         List<String> lines = Files.readAllLines(path);
@@ -138,7 +138,7 @@ public class Hangman extends JFrame {
         }
     }
 
-    private void Won() {
+    private void won() {
         inputField.setText("You won!");
         inputField.setEnabled(false);
         guessButton.setEnabled(false);
@@ -148,18 +148,18 @@ public class Hangman extends JFrame {
         new HallOfFame(mistakes, name);
     }
 
-    private void Lost() {
+    private void lost() {
         inputField.setText("You lost!");
         inputField.setEnabled(false);
         guessButton.setEnabled(false);
     }
 
-    private void UpdateMistakes() {
+    private void updateMistakes() {
         mistakes++;
         mistakesDone.setText(String.valueOf(mistakes) + " mistakes");
     }
 
-    private void FillWholeWord() {
+    private void fillWholeWord() {
         for (int x = 0; x < word.length(); x++) {
             listModel.setElementAt(String.valueOf(word.charAt(x)), x);
         }

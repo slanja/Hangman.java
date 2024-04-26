@@ -25,7 +25,7 @@ public class HallOfFame extends JFrame {
         try {
             Files.write(Paths.get(String.valueOf(path)), text.getBytes(), StandardOpenOption.APPEND);
 
-            LoadTable();
+            loadTable();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -35,7 +35,7 @@ public class HallOfFame extends JFrame {
         initComponents();
 
         try {
-            LoadTable();
+            loadTable();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -52,7 +52,7 @@ public class HallOfFame extends JFrame {
         fameWall.setModel(listModel);
     }
 
-    public void LoadTable() throws IOException {
+    public void loadTable() throws IOException {
         List<String> lines = Files.readAllLines(path);
 
         // adding all lines from saved file
